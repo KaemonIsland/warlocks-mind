@@ -1,0 +1,13 @@
+.main {
+  margin-top: 4.5rem;
+}
+
+.home {
+  text-align: center;
+  &__list {
+    list-style-type: none;
+  }
+  &__dice {
+    margin: 3rem auto 0 auto;
+  }
+}

@@ -1,2 +1,19 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home jumbotron">
+  <h1>Welcome to <span class="home-title">Warlocks Mind</span></h1>
+
+  <h2>This is one of many projects made by Kaemon Lovendahl! You can find other projects on my
+    <a href="http://kaemonlovendahl.herokuapp.com/", target="_blank">portfolio website</a>.</h2>
+
+  <p>Warlocks Mind is designed to make playing 5th edition much easier, so that you can spend less time:</p>
+  <ul class="home__list">
+    <li>Looking up rules</li>
+    <li>Tracking Monster Stats</li>
+    <li>Finding Equipment, Spells, and Adventuring gear.</li>
+  </ul>
+  <p>In order to focus on the game!</p>
+
+  <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-outline-primary" %>
+  <div class='home__dice'>
+    <%= image_tag('d20.png', alt: "20 sided dice") %>
+  </div>
+</div>
