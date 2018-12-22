@@ -13,4 +13,10 @@ class Property < ApplicationRecord
                    uniqueness: { case_sensitive: false }
 
   validates :description, presence: true
+
+  private
+    #Scopes
+    def self.viewable_props
+      where(view_status: 'personal').or(Property.where(view_status: 'everyone'))
+    end
 end
