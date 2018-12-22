@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
 
   it 'is invalid with an identical email' do
     @user.save
-    @dup_user = build(:user)
+    @dup_user = build(:user, email: @user.email)
     expect(@dup_user).to_not be_valid
   end
 

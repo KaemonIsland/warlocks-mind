@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :properties, foreign_key: "reference_id"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,4 +18,12 @@ class User < ApplicationRecord
   validates :password, presence: true,
                        length: { minimum: 6 },
                        allow_nil: true
+
+  def first_name
+    self.name.split.first
+  end
+
+  def last_name
+    self.name.split.last
+  end
 end
