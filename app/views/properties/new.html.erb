@@ -1,2 +1,9 @@
-<h1>Properties#new</h1>
-<p>Find me in app/views/properties/new.html.erb</p>
+<% provide(:title, "New Property") %>
+<% provide(:button_text, "Save Property") %>
+<% provide(:url_path, user_properties_path) %>
+
+<h1>New Property</h1>
+
+<div class="row justify-content-center">
+  <%= render 'form' %>
+</div>

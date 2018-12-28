@@ -3,4 +3,8 @@ module Methods_Manager
     post new_user_session_path, params: { user: { email: user.email,
                                                   password: 'password' } }
   end
+
+  def log_out(user)
+    delete destroy_user_session_path user
+  end
 end

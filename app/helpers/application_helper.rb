@@ -14,4 +14,8 @@ module ApplicationHelper
     title = "Warlocks Mind"
     page_title.empty? ? title : "#{page_title} | #{title}"
   end
+
+  def can_edit?(model)
+    current_user.admin? || current_user.id == model.user_id
+  end
 end

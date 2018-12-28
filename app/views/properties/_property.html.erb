@@ -1,22 +1,28 @@
 <div class="card">
-  <div class="card-header" id="headingThree">
+  <div class="card-header item__view--<%= property.view_status %>" id="headingThree">
     <h5 class="mb-0">
-      <button class="btn btn-link collapsed" 
+      <button class="btn btn-link collapsed item__title" 
               type="button" 
               data-toggle="collapse" 
-              data-target="#<%= property.name %>" 
+              data-target="#<%= property.name.split.join %>" 
               aria-expanded="false" 
               aria-controls="collapseThree">
-        <%= property.name.capitalize %>
+        <%= property.name %>
       </button>
     </h5>
   </div>
-  <div id="<%= property.name %>" 
+  <div id="<%= property.name.split.join %>" 
        class="collapse" 
        aria-labelledby="headingThree" 
        data-parent="#accordionExample">
     <div class="card-body">
-      <%= property.description %>
+      <%= property.description %> <br />
+      <% if can_edit? property %>
+        <%= link_to "Update", edit_property_path(property), class: "item__link btn btn-outline-secondary btn-sm" %>
+      <% end %>
+      <% if can_edit? property %>
+        <%= link_to "Delete", property_path(property), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>
+      <% end %>
     </div>
   </div>
 </div>

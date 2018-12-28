@@ -1,0 +1,11 @@
+<% view_status = [['Personal', 'personal']] %>
+<% view_status << ['Everyone', 'everyone'] if current_user.admin? %>
+
+<div class="form-group">
+  <%= f.label :view_status, "View Status" %>
+  <%= f.select(:view_status) do %>
+    <% view_status.each do |c| %>
+      <%= content_tag(:option, c.first, value: c.last) %>
+    <% end %>
+  <% end %>
+</div>

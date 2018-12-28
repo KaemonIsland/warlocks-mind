@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
   belongs_to :user, foreign_key: "user_id", optional: true
+  before_save :capitalize
   
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -16,7 +17,11 @@ class Property < ApplicationRecord
 
   private
     #Scopes
-    def self.viewable_props
-      where(view_status: 'personal').or(Property.where(view_status: 'everyone'))
+    def self.viewable_props(user)
+      where(view_status: 'personal', user_id: user.id).or(Property.where(view_status: 'everyone')).order(:name)
+    end
+
+    def capitalize
+      name.capitalize!
     end
 end

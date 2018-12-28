@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <%= form_for(@property, url: yield(:url_path)) do |f| %>
+  
+    <%= render 'shared/error_messages', model: @property %>
+
+    <div class="form-group">
+      <%= f.label :name, "Property Name" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "Property Description" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+      <%= render 'layouts/view_status', f: f %>
+
+    <div class="form-group">
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

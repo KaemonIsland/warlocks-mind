@@ -1,0 +1,23 @@
+@import "abstracts/variables";
+
+.item {
+  &__title {
+    color: black;
+    font-weight: bold;
+    &:hover {
+      color: black;
+    }
+  }
+  &__link {
+    margin-top: .5rem;
+  }
+  &__view--everyone {
+    background: $view_everyone;
+  }
+  &__view--homebrew {
+    background: $view_homebrew;
+  }
+  &__view--personal {
+    background: $view_personal;
+  }
+}
