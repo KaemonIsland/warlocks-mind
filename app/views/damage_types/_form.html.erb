@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <%= form_for(@damage_type, url: yield(:url_path)) do |f| %>
+  
+    <%= render 'shared/error_messages', model: @damage_type %>
+
+    <div class="form-group">
+      <%= f.label :name, "Damage Type Name" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "Damage Type Description" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+      <%= render 'layouts/view_status', f: f %>
+
+    <div class="form-group">
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

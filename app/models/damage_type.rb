@@ -9,7 +9,7 @@ class DamageType < ApplicationRecord
                       homebrew: 1,
                       everyone: 2 }
 
-                      validates :name, presence: true,
+  validates :name, presence: true,
                    length: { maximum: 25 },
                    uniqueness: { case_sensitive: false }
 
@@ -18,6 +18,6 @@ class DamageType < ApplicationRecord
   private
     #Scopes
     def self.viewable_damage_types(user)
-      where(view_status: 'personal', user_id: user.id).or(Damage_type.where(view_status: 'everyone')).order(:name)
+      where(view_status: 'personal', user_id: user.id).or(DamageType.where(view_status: 'everyone')).order(:name)
     end
 end

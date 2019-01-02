@@ -37,14 +37,23 @@ def return_stats()
   }
 end
 
-30.times do
+def create_property_damage(model)
+  30.times do
   fake = return_stats()
-  Property.create!(
+  model.create!(
     name: fake[:name],
     description: fake[:description],
     view_status: fake[:view_status],
     user_id: fake[:user_id]
   )
+  end
 end
-  
+
+create_property_damage(Property)
+
 puts "30 Properties Added"
+
+create_property_damage(DamageType)
+
+
+puts "30 Damage Types Added"

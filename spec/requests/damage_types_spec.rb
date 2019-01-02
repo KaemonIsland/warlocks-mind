@@ -16,7 +16,7 @@ RSpec.describe DamageTypesController, type: :request do
 
     it "has damage_types in the title" do
       get user_damage_types_path @user
-      expect(response.body).to include("damage_types | Warlocks Mind")
+      expect(response.body).to include("Damage Types | Warlocks Mind")
     end
 
     it "has a key for Personal and Everyone view status" do
@@ -29,17 +29,17 @@ RSpec.describe DamageTypesController, type: :request do
   describe "New/Create" do
     it "has a link on the index page" do
       get user_damage_types_path @user
-      expect(response.body).to include("Create a new property")
+      expect(response.body).to include("Create a new damage type")
       expect(response.body).to include("/users/#{@user.id}/damage_types/new")
     end
 
     it "redirects to the new template" do
-      get new_user_property_path @user
+      get new_user_damage_type_path @user
       expect(response).to render_template "damage_types/new"
     end
 
     it "renders a form for name, description and view status" do
-      get new_user_property_path @user
+      get new_user_damage_type_path @user
       form_elements = ["name", "description", "view_status"]
 
       form_elements.each do |elem|
@@ -48,8 +48,8 @@ RSpec.describe DamageTypesController, type: :request do
     end
 
     it "accepts proper attributes on submit" do
-      get new_user_property_path @user
-      post user_damage_types_path(@user), params: { property: {
+      get new_user_damage_type_path @user
+      post user_damage_types_path(@user), params: { damage_type: {
         name: "Light",
         description: "This weapon is super light"
       } }
@@ -61,8 +61,8 @@ RSpec.describe DamageTypesController, type: :request do
     end
 
     it "lists errors in the form if any" do
-      get new_user_property_path @user
-      post user_damage_types_path(@user), params: { property: {
+      get new_user_damage_type_path @user
+      post user_damage_types_path(@user), params: { damage_type: {
         name: '',
         description: ''
       } }
@@ -74,8 +74,8 @@ RSpec.describe DamageTypesController, type: :request do
       log_out @user
       admin = create(:user, admin: true)
       log_in_as admin
-      get new_user_property_path admin
-      post user_damage_types_path(admin), params: { property: {
+      get new_user_damage_type_path admin
+      post user_damage_types_path(admin), params: { damage_type: {
         name: "Light",
         description: "This is a light weapon",
         view_status: 'everyone'
@@ -89,9 +89,9 @@ RSpec.describe DamageTypesController, type: :request do
     it "doesn't allow non-admins to select everyone status" do
       @user.admin = false
       expect(@user.admin).to be false
-      get new_user_property_path @user
+      get new_user_damage_type_path @user
       expect(response.body).to_not include("Everyone")
-      post user_damage_types_path(@user), params: { property: {
+      post user_damage_types_path(@user), params: { damage_type: {
         name: "Light",
         description: "This is a light weapon",
         view_status: 'everyone'
@@ -103,12 +103,12 @@ RSpec.describe DamageTypesController, type: :request do
 
   describe "Edit/Update" do
     it 'allows user to edit if admin or owner' do
-      prop = create(:property, user_id: @user.id)
+      prop = create(:damage_type, user_id: @user.id)
       get user_damage_types_path @user
       expect(response.body).to include("Update")
-      get edit_property_path prop
+      get edit_damage_type_path prop
       expect(response).to render_template("damage_types/edit")
-      patch property_path(prop), params: { property: {
+      patch damage_type_path(prop), params: { damage_type: {
         name: "Updated Light",
         description: "This is also Updated"
       }}
@@ -118,27 +118,27 @@ RSpec.describe DamageTypesController, type: :request do
     end
 
     it "does not allow non admins to edit damage_types with everyone view status" do
-      prop = create(:property, user_id: 132)
+      prop = create(:damage_type, user_id: 132)
       expect(@user.admin?).to be false
       get user_damage_types_path @user
       expect(response.body).to_not include("Update")
-      get edit_property_path prop
+      get edit_damage_type_path prop
       expect(response).to_not render_template("damage_types/edit")
     end
 
-    it "changes title to Edit Property" do
-      prop = create(:property, user_id: @user.id)
-      get edit_property_path prop
-      expect(response.body).to include("Edit Property | Warlocks Mind")
+    it "changes title to Edit damage_type" do
+      prop = create(:damage_type, user_id: @user.id)
+      get edit_damage_type_path prop
+      expect(response.body).to include("Edit Damage Type | Warlocks Mind")
     end
   end
 
   describe "Destroy" do
     it "only damage_types that belong to the user and admins can delele damage_types" do
-      prop = create(:property, user_id: @user.id)
+      prop = create(:damage_type, user_id: @user.id)
       get user_damage_types_path @user
       expect(response.body).to include("Delete")
-      delete property_path prop
+      delete damage_type_path prop
       expect(response).to redirect_to user_damage_types_path @user
       expect(response.body).to_not include(prop.name)
     end

@@ -4,14 +4,14 @@
       <button class="btn btn-link collapsed item__title" 
               type="button" 
               data-toggle="collapse" 
-              data-target="#<%= property.name.split.join %>" 
+              data-target="#property<%= property.id %>" 
               aria-expanded="false" 
               aria-controls="collapseThree">
         <%= property.name %>
       </button>
     </h5>
   </div>
-  <div id="<%= property.name.split.join %>" 
+  <div id="property<%= property.id %>" 
        class="collapse" 
        aria-labelledby="headingThree" 
        data-parent="#accordionExample">
