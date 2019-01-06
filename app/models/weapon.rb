@@ -38,8 +38,8 @@ class Weapon < ApplicationRecord
   enum view_status: [:personal, :homebrew, :everyone]
 
   validates :description, presence: true,
-                          length: { maximum: 500 },
-                          allow_nil: true
+                          allow_blank: true,
+                          length: { maximum: 500 }
 
   private
 

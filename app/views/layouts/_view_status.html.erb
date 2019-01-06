@@ -3,9 +3,5 @@
 
 <div class="form-group">
   <%= f.label :view_status, "View Status" %>
-  <%= f.select(:view_status) do %>
-    <% view_status.each do |c| %>
-      <%= content_tag(:option, c.first, value: c.last) %>
-    <% end %>
-  <% end %>
+  <%= f.select(:view_status, options_for_select(view_status), {}, class: 'form-control') %>
 </div>

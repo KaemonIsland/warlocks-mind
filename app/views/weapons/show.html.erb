@@ -2,20 +2,36 @@
 
 <h1>
   <%= @weapon.name %>
-  <% if @weapon.modifier <=1 %>
+  <% if @weapon.modifier >= 1 %>
     +<%= @weapon.modifier %>
   <% end %>
 </h1>
+
+<% if can_edit? @weapon %>
+  <%= link_to "Update", edit_weapon_path(@weapon), class: "item__link btn btn-outline-secondary btn-sm" %>
+<% end %>
+<% if can_edit? @weapon %>
+  <%= link_to "Delete", weapon_path(@weapon), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>
+<% end %>
+
 <p>Belongs to 
   <% if @weapon.view_status == "everyone" %>
     Everyone.
   <% elsif @weapon.view_status == "personal" %>
-    You.
+    User ID: <%= @weapon.user_id %>
   <% end %>
 </p>
 
 <p>Category: <%= split_category(@weapon.category) %></p>
 <p>Cost: <%= @weapon.cost_amount %> <%= @weapon.cost_type%></p>
 <p>Damage: <%= @weapon.damage_amount %>d<%= @weapon.damage_die %></p>
-<p>Weight: <%= @weapon.weight %> lbs</p>
-<p>Description: <%= @weapon.description %></p>
+<p>Weight: <%= pluralize(@weapon.weight, 'lb', 'lbs') %></p>
+
+<p>Range: 
+  <% if @weapon.category == "simple_ranged" || @weapon.category == "martial_ranged" %>
+  (<%= @weapon.range_near %> / <%= @weapon.range_far %>)
+  <% end %>
+</p>
+<% if !@weapon.description.blank? %>
+  <p>Description: <%= @weapon.description %></p>
+<% end %>

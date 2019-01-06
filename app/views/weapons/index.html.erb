@@ -4,6 +4,8 @@
 
 <%= render 'layouts/viewable_key' %>
 
+<%= link_to 'Create a new weapon', new_user_weapon_path(current_user) %>
+
 <div class="accordion" id="accordionExample">
   <% weapon_categories = %w(simple_melee simple_ranged martial_melee martial_ranged) %>
 

@@ -1,0 +1,83 @@
+<div class='col-md-6'>
+  <%= form_for(@weapon, url: yield(:url_path)) do |f| %>
+    <div class="form-group">
+      <%= render 'shared/error_messages', model: @weapon %>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="col">
+        <%= f.label :modifier %>
+        <%= f.number_field :modifier, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :category %>
+      <%= f.select(:category, options_for_select([
+        ["Simple Melee", "simple_melee"],
+        ["Simple Ranged", "simple_ranged"],
+        ["Martial Melee", "martial_melee"],
+        ["Martial Ranged", "martial_ranged"]
+      ]), {}, class: "form-control") %>
+    </div>
+
+    <%= f.label :cost_amount, "Cost" %>
+    <div class="row">
+      <div class="col">
+        <%= f.number_field :cost_amount, class: "form-control" %>
+      </div>
+      <div class="col">
+        <%= f.select(:cost_type, options_for_select([
+          ["Copper", "cp"],
+          ["Silver", "sp"],
+          ["Epsilon", "ep"],
+          ["Gold", "gp"],
+          ["Platinum", "pp"]
+        ]), {}, class: "form-control")%>
+      </div>
+    </div>
+
+    <%= f.label :damage_amount, "Damage" %>
+    <div class="row">
+      <div class="col">
+        <%= f.number_field :damage_amount, class: "form-control" %>
+      </div>
+      d
+      <div class="col">
+        <%= f.number_field :damage_die, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :weight, "Weight (lbs)" %>
+      <%= f.number_field :weight, class: "form-control" %>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <%= f.label :range_near, "Normal Range (If ranged weapon)"%>
+        <%= f.number_field :range_near, class: "form-control"%>
+      </div>
+      <div class="col">
+      <%= f.label :range_far, "Long Range (If ranged weapon)"%>
+        <%= f.number_field :range_far, class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "Description (Not Required)" %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+
+    <%= render "layouts/view_status", f: f %>
+
+    <div class="form-group">
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+</div>
