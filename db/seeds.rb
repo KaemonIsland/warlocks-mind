@@ -32,8 +32,8 @@ def return_stats()
   {
     name: Faker::Pokemon.unique.name,
     description: Faker::Lorem.sentences(5).join(' '),
-    view_status: Faker::Number.number(2).to_i.even? ? 'personal' : 'everyone',
-    user_id: Faker::Number.number(2).to_i.even? ? 1 : 2
+    view_status: rand(2).even? ? 'personal' : 'everyone',
+    user_id: rand(2).even? ? 1 : 2
   }
 end
 
@@ -57,3 +57,26 @@ create_property_damage(DamageType)
 
 
 puts "30 Damage Types Added"
+
+30.times do |weapon|
+  category = rand 4
+
+  Weapon.create!(
+    name: Faker::Pokemon.unique.move,
+    category: rand(4),
+    cost_amount: rand(20),
+    cost_type: rand(5),
+    damage_amount: 1,
+    damage_die: 1 + rand(12),
+    weight: 1 + rand(20),
+    range_near: category == 1 || 3 ? rand(60) : nil,
+    range_far: category == 1 || 3 ? rand(250) : nil,
+    view_status: rand(2).even? ? 'personal' : 'everyone',
+    description: Faker::Lorem.sentences(5).join(' '),
+    modifier: 1 + rand(4),
+    user_id: 1 + rand(2)
+  )
+  
+end
+
+puts "30 Weapons Added"

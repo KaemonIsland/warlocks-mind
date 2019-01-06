@@ -22,9 +22,24 @@ RSpec.describe PagesController, type: :request do
       user = create(:user)
       log_in_as user
       get root_path
-
       expect(response.body).to include("Properties")
       expect(response.body).to include("users/#{user.id}/properties")
+    end
+
+    it 'has a link to view damage types' do
+      user = create(:user)
+      log_in_as user
+      get root_path
+      expect(response.body).to include("Damage Types")
+      expect(response.body).to include("users/#{user.id}/damage_types")
+    end
+
+    it 'has a link to view weapons' do
+      user = create(:user)
+      log_in_as user
+      get root_path
+      expect(response.body).to include("Weapons")
+      expect(response.body).to include("users/#{user.id}/weapons")
     end
   end
   

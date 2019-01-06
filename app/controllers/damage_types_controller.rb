@@ -21,7 +21,7 @@ class DamageTypesController < ApplicationController
       flash[:warning] = "View status not allowed"
       render 'new'
     elsif @damage_type.save
-      flash[:success] = "#{@damage_type.name} has been created"
+      flash[:success] = "#{@damage_type.name} damage has been created"
       redirect_to user_damage_types_path
     else
       render 'new'
@@ -30,7 +30,7 @@ class DamageTypesController < ApplicationController
 
   def update
     if @damage_type.update_attributes(damage_type_params)
-      flash[:success] = "#{@damage_type.name} has been updated"
+      flash[:success] = "#{@damage_type.name} damage has been updated"
       redirect_to user_damage_types_path current_user
     else
       render 'edit'
@@ -39,7 +39,7 @@ class DamageTypesController < ApplicationController
 
   def destroy
     @damage_type.destroy
-    flash[:warning] = "#{@damage_type.name} has been deleted"
+    flash[:warning] = "#{@damage_type.name} damage has been deleted"
     redirect_to user_damage_types_path current_user
   end
 
@@ -58,10 +58,5 @@ class DamageTypesController < ApplicationController
 
       @damage_type = DamageType.friendly.find(params[:id])
       redirect_to(root_path) unless current_user.id == @damage_type.user_id
-    end
-
-    def index_view
-      @user = User.find(params[:user_id])
-      redirect_to(root_path) unless current_user.id == @user.id
     end
 end

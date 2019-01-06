@@ -58,9 +58,4 @@ class PropertiesController < ApplicationController
       @property = Property.friendly.find(params[:id])
       redirect_to(root_path) unless current_user.id == @property.user_id
     end
-
-    def index_view
-      @user = User.find(params[:user_id])
-      redirect_to(root_path) unless current_user.id == @user.id
-    end
 end

@@ -50,14 +50,14 @@ RSpec.describe DamageTypesController, type: :request do
     it "accepts proper attributes on submit" do
       get new_user_damage_type_path @user
       post user_damage_types_path(@user), params: { damage_type: {
-        name: "Light",
-        description: "This weapon is super light"
+        name: "Acid",
+        description: "This weapon deals Acid damage"
       } }
       expect(flash.empty?).to be false
       expect(response).to redirect_to user_damage_types_path
       follow_redirect!
-      expect(response.body).to include("Light has been created")
-      expect(response.body).to include("Light")
+      expect(response.body).to include("Acid damage has been created")
+      expect(response.body).to include("Acid")
     end
 
     it "lists errors in the form if any" do
@@ -76,13 +76,13 @@ RSpec.describe DamageTypesController, type: :request do
       log_in_as admin
       get new_user_damage_type_path admin
       post user_damage_types_path(admin), params: { damage_type: {
-        name: "Light",
-        description: "This is a light weapon",
+        name: "Acid",
+        description: "This is a Acid weapon",
         view_status: 'everyone'
       } }
       expect(response).to redirect_to user_damage_types_path
       follow_redirect!
-      expect(response.body).to include("Light")
+      expect(response.body).to include("Acid")
       expect(response.body).to include("item__view--everyone")
     end
 
@@ -92,8 +92,8 @@ RSpec.describe DamageTypesController, type: :request do
       get new_user_damage_type_path @user
       expect(response.body).to_not include("Everyone")
       post user_damage_types_path(@user), params: { damage_type: {
-        name: "Light",
-        description: "This is a light weapon",
+        name: "Acid",
+        description: "This is a Acid weapon",
         view_status: 'everyone'
       }}
       expect(flash.empty?).to be false
@@ -109,12 +109,12 @@ RSpec.describe DamageTypesController, type: :request do
       get edit_damage_type_path prop
       expect(response).to render_template("damage_types/edit")
       patch damage_type_path(prop), params: { damage_type: {
-        name: "Updated Light",
+        name: "Updated Acid",
         description: "This is also Updated"
       }}
       expect(response).to redirect_to user_damage_types_path @user
       follow_redirect!
-      expect(response.body).to include("Updated light")
+      expect(response.body).to include("Updated acid")
     end
 
     it "does not allow non admins to edit damage_types with everyone view status" do

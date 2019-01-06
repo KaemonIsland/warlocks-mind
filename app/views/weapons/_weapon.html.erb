@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header item__view--<%= weapon.view_status %>" id="headingThree">
+    <h5 class="mb-0">
+      <button class="btn btn-link collapsed item__title" 
+              type="button" 
+              data-toggle="collapse" 
+              data-target="#weapon<%= weapon.id %>" 
+              aria-expanded="false" 
+              aria-controls="collapseThree">
+        <%= weapon.name %>
+      </button>
+    </h5>
+  </div>
+  <div id="weapon<%= weapon.id %>" 
+       class="collapse" 
+       aria-labelledby="headingThree" 
+       data-parent="#accordionExample">
+    <div class="card-body">
+      Damage: <%= weapon.damage_amount %>d<%= weapon.damage_die %><br >
+      Cost: <%= weapon.cost_amount %> <%= weapon.cost_type %><br >
+      Weight: <%= weapon.weight %> lbs <br >
+      Description: <%= weapon.description %>
+    </div>
+  </div>
+</div>
