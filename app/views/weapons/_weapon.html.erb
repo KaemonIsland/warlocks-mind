@@ -19,7 +19,8 @@
       Damage: <%= weapon.damage_amount %>d<%= weapon.damage_die %><br >
       Cost: <%= weapon.cost_amount %> <%= weapon.cost_type %><br >
       Weight: <%= weapon.weight %> lbs <br >
-      Description: <%= weapon.description %>
+      Description: <%= weapon.description %> <br >
+      <%= link_to "View Full Weapon", weapon_path(weapon) %>
     </div>
   </div>
 </div>

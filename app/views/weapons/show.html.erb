@@ -1,0 +1,21 @@
+<% provide(:title, @weapon.name) %>
+
+<h1>
+  <%= @weapon.name %>
+  <% if @weapon.modifier <=1 %>
+    +<%= @weapon.modifier %>
+  <% end %>
+</h1>
+<p>Belongs to 
+  <% if @weapon.view_status == "everyone" %>
+    Everyone.
+  <% elsif @weapon.view_status == "personal" %>
+    You.
+  <% end %>
+</p>
+
+<p>Category: <%= split_category(@weapon.category) %></p>
+<p>Cost: <%= @weapon.cost_amount %> <%= @weapon.cost_type%></p>
+<p>Damage: <%= @weapon.damage_amount %>d<%= @weapon.damage_die %></p>
+<p>Weight: <%= @weapon.weight %> lbs</p>
+<p>Description: <%= @weapon.description %></p>

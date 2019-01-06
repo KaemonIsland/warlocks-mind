@@ -1,6 +1,7 @@
 class Weapon < ApplicationRecord
   belongs_to :user, optional: true
-
+  
+  before_save :capitalize
   after_initialize :set_defaults
 
   validates :name, presence: true,
