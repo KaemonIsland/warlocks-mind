@@ -14,5 +14,6 @@ FactoryBot.define do
     versatile_die { nil }
     description { "This is a long piece of wood" }
     modifier { 0 }
+    user
   end
 end

@@ -82,8 +82,18 @@ RSpec.describe WeaponsController, type: :request do
 
     it "renders the correct form" do
       get new_user_weapon_path @user
-      expect(response).to render_template("weapons/form")
-      expect(response.body).to include("Create Weapon")
+      expect(response).to render_template("weapons/_form")
+      expect(response.body).to include("Create New Weapon")
+    end
+
+    it "renders errors if name is blank" do
+      get new_user_weapon_path @user
+      post user_weapons_path(@user), params: { weapon: {
+        name: ''
+      }}
+      expect(flash.empty?).to be true
+      expect(response.body).to include("The form contains 1 error.")
+      expect(response).to_not redirect_to("weapons/show")
     end
 
     it "creates a Simple Melee weapon" do
@@ -170,6 +180,71 @@ RSpec.describe WeaponsController, type: :request do
         follow_redirect!
         expect(response.body).to include("Blowgun")
         expect(response.body).to include("(25 / 100)")
+    end
+  end
+
+  describe "Edit/Update" do
+
+    it "updates a weapon and shows a success flash message" do
+      log_in_as(@user)
+      weapon = create(:weapon, user_id: @user.id)
+      expect(weapon.user_id).to eq(@user.id)
+      get edit_weapon_path weapon
+      expect(response).to render_template("weapons/edit")
+      expect(response.body).to include("Edit Weapon")
+      patch weapon_path(weapon), params: { weapon: {
+        name: "Updated Name",
+        modifier: 3,
+        category: 'simple_ranged',
+        cost_amount: 33,
+        cost_type: 'gp',
+        damage_amount: 3,
+        damage_die: 12,
+        weight: 33,
+        range_near: 30,
+        range_far: 300,
+        description: "This is an updated description",
+        view_status: "personal"
+      } }
+      new_weapon = assigns(:weapon)
+      expect(response).to redirect_to weapon_path new_weapon
+      follow_redirect!
+      expect(flash.empty?).to be false
+      expect(response.body).to include("Updated name")
+    end
+
+    it "does not allow a non admin user to edit weapons that are not their own" do
+      @user.admin = true
+      weapon = create(:weapon, user_id: @user.id)
+      log_out(@user)
+      alt_user = create(:user)
+      log_in_as(alt_user)
+      get edit_weapon_path weapon
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe "Destroy" do
+    it "allows admins or weapon owner to delete weapons" do
+      weapon = create(:weapon, user_id: @user.id)
+      get weapon_path weapon
+      expect(response.body).to include("Delete")
+      delete weapon_path weapon
+      expect(response).to redirect_to user_weapons_path @user
+      follow_redirect!
+      expect(flash.empty?).to be false
+      expect(response.body).to include("#{weapon.name} has been deleted")
+    end
+
+    it "does not allow users to delete other users weapons" do
+      weapon = create(:weapon, user_id: @user.id)
+      log_out @user
+      alt_user = create(:user)
+      log_in_as alt_user
+      get weapon_path weapon
+      expect(response.body).to_not match /Delete/
+      delete weapon_path weapon
+      expect(response).to_not redirect_to user_weapons_path alt_user
     end
   end
 end

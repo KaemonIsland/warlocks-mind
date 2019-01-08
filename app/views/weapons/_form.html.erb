@@ -4,17 +4,6 @@
       <%= render 'shared/error_messages', model: @weapon %>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: "form-control" %>
-      </div>
-      <div class="col">
-        <%= f.label :modifier %>
-        <%= f.number_field :modifier, class: "form-control" %>
-      </div>
-    </div>
-
     <div class="form-group">
       <%= f.label :category %>
       <%= f.select(:category, options_for_select([
@@ -23,6 +12,11 @@
         ["Martial Melee", "martial_melee"],
         ["Martial Ranged", "martial_ranged"]
       ]), {}, class: "form-control") %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <%= f.label :cost_amount, "Cost" %>
@@ -41,7 +35,7 @@
       </div>
     </div>
 
-    <%= f.label :damage_amount, "Damage" %>
+    <%= f.label :damage_amount, "Damage + Modifier" %>
     <div class="row">
       <div class="col">
         <%= f.number_field :damage_amount, class: "form-control" %>
@@ -49,6 +43,10 @@
       d
       <div class="col">
         <%= f.number_field :damage_die, class: "form-control" %>
+      </div>
+      +
+      <div class="col">
+        <%= f.number_field :modifier, class: "form-control" %>
       </div>
     </div>
 

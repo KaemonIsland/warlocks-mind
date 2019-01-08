@@ -12,7 +12,7 @@
   <% weapon_categories.each do |category| %>
   <% cat = @weapons.weapon_index(category, current_user) %>
   <% if cat.any? %>
-      <h1><%= split_category(category) %></h1>
+      <h1 class="weapon__title"><%= split_category(category) %></h1>
 
       <% cat.each do |weapon| %>
         <%= render "weapon", weapon: weapon %>

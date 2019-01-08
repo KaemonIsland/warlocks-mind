@@ -1,13 +1,17 @@
 class WeaponsController < ApplicationController
   before_action :index_view, only: [:index]
-  before_action :set_weapon, only: [:show]
-  before_action :can_view_edit, only: [:show]
+  before_action :set_weapon, only: [:show, :edit, :update, :destroy]
+  before_action :can_view, only: [:show]
+  before_action :editable, only: [:edit, :udpate, :destroy]
 
   def index
     @weapons = Weapon.all
   end
 
   def show
+  end
+
+  def edit
   end
 
   def new
@@ -28,6 +32,21 @@ class WeaponsController < ApplicationController
     end
   end
 
+  def update
+    if @weapon.update_attributes(weapon_params)
+      flash[:success] = "#{@weapon.name} has been updated"
+      redirect_to @weapon
+    else
+      render "edit"
+    end
+  end
+
+  def destroy
+    @weapon.delete
+    flash[:warning] = "#{@weapon.name} has been deleted"
+    redirect_to user_weapons_path current_user
+  end
+
   private
     def set_weapon
       @weapon = Weapon.find(params[:id])
@@ -37,8 +56,7 @@ class WeaponsController < ApplicationController
       params.require(:weapon).permit(:name, :category, :cost_amount, :cost_type, :damage_amount, :damage_die, :weight, :range_near, :range_far, :view_status, :versatile_amount, :versatile_die, :description)
     end
 
-    #*Allows users to edit their own content, and admins to edit all content
-    def can_view_edit
+    def can_view
       return true if current_user.admin?
 
       @weapon = Weapon.find(params[:id])
@@ -47,5 +65,12 @@ class WeaponsController < ApplicationController
       else
         redirect_to(root_path) unless current_user.id == @weapon.user_id
       end
+    end
+
+    def editable
+      return true if current_user.admin?
+
+      @weapon = Weapon.find(params[:id])
+     redirect_to root_path unless current_user.id == @weapon.user_id
     end
 end

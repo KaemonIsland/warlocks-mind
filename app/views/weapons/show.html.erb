@@ -27,11 +27,11 @@
 <p>Damage: <%= @weapon.damage_amount %>d<%= @weapon.damage_die %></p>
 <p>Weight: <%= pluralize(@weapon.weight, 'lb', 'lbs') %></p>
 
-<p>Range: 
-  <% if @weapon.category == "simple_ranged" || @weapon.category == "martial_ranged" %>
-  (<%= @weapon.range_near %> / <%= @weapon.range_far %>)
-  <% end %>
-</p>
+<% if @weapon.category == "simple_ranged" || @weapon.category == "martial_ranged" %>
+  <p>Range: 
+    (<%= @weapon.range_near %> / <%= @weapon.range_far %>)
+  </p>
+<% end %>
 <% if !@weapon.description.blank? %>
   <p>Description: <%= @weapon.description %></p>
 <% end %>
