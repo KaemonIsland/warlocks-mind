@@ -201,6 +201,7 @@ RSpec.describe WeaponsController, type: :request do
         damage_amount: 3,
         damage_die: 12,
         weight: 33,
+        weapon_damage_types_attributes: { "0" => { damage_type_id: '' } },
         range_near: 30,
         range_far: 300,
         description: "This is an updated description",

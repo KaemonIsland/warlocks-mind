@@ -1,7 +1,7 @@
 class DamageTypesController < ApplicationController
   before_action :set_damage_type, only: [:edit, :update, :destroy]
   before_action :index_view, only: [:index]
-  before_action :can_edit, only: [:edit, :update, :destroy]
+  before_action :editable, only: [:edit, :update, :destroy]
 
   def index
     @damage_types = DamageType.viewable_damage_types(current_user)
@@ -53,10 +53,8 @@ class DamageTypesController < ApplicationController
       @damage_type = DamageType.friendly.find(params[:id])
     end
 
-    def can_edit
+    def editable
       return true if current_user.admin?
-
-      @damage_type = DamageType.friendly.find(params[:id])
       redirect_to(root_path) unless current_user.id == @damage_type.user_id
     end
 end

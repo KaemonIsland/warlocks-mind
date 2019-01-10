@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :damage_types, shallow: true, except: [:show]
     resources :weapons, shallow: true
   end
+  delete 'remove/:id/:index', to: 'weapons#remove_attribute', as: 'remove'
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   

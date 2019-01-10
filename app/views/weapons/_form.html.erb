@@ -51,6 +51,24 @@
     </div>
 
     <div class="form-group">
+      <% if params[:action] == "edit" %>
+        <% if @weapon.damage_types.any? %>
+          <p>Current Damage Types:</p>
+          <ul>
+            <% @weapon.damage_types.each do |damage_type| %>
+              <li><%= damage_type.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+      <%= f.label :weapon_damage_types, "Damage Type" %>
+      <%= f.fields_for :weapon_damage_types do |weapon_damage| %>
+        <%= weapon_damage.select(:damage_type_id,
+          options_for_select(nested_attributes_select(DamageType)), {}, class: 'form-control') %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :weight, "Weight (lbs)" %>
       <%= f.number_field :weight, class: "form-control" %>
     </div>

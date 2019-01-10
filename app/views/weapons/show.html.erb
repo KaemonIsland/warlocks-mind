@@ -14,13 +14,14 @@
   <%= link_to "Delete", weapon_path(@weapon), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>
 <% end %>
 
-<p>Belongs to 
-  <% if @weapon.view_status == "everyone" %>
-    Everyone.
-  <% elsif @weapon.view_status == "personal" %>
-    User ID: <%= @weapon.user_id %>
-  <% end %>
-</p>
+<% if @weapon.damage_types.any? %>
+  <p>Damage Type(s):</p>
+  <ul>
+    <% @weapon.weapon_damage_types.each_with_index do |damage_type, index| %>
+      <li><%= @weapon.damage_types[index.to_i].name %> <%= link_to "Remove", remove_path(@weapon, damage_type.id), method: :delete, data: { confirm: "Are you sure?"} if can_edit?(@weapon) %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <p>Category: <%= split_category(@weapon.category) %></p>
 <p>Cost: <%= @weapon.cost_amount %> <%= @weapon.cost_type%></p>

@@ -1,5 +1,7 @@
 class DamageType < ApplicationRecord
   belongs_to :user, foreign_key: "user_id", optional: true
+  has_many :weapon_damage_types
+  has_many :weapons, through: :weapon_damage_types
   before_save :capitalize
 
   extend FriendlyId

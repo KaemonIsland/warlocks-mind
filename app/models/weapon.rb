@@ -1,5 +1,11 @@
 class Weapon < ApplicationRecord
+  has_many :weapon_damage_types
+  has_many :damage_types, through: :weapon_damage_types
   belongs_to :user, optional: true
+
+  accepts_nested_attributes_for :weapon_damage_types, 
+                                reject_if: lambda { |attr| attr['damage_type_id'].blank? },
+                                allow_destroy: true
   
   before_save :capitalize
   after_initialize :set_defaults
@@ -40,6 +46,16 @@ class Weapon < ApplicationRecord
   validates :description, presence: true,
                           allow_blank: true,
                           length: { maximum: 500 }
+
+  def remove(attr, id)
+    case attr
+    when "damage_types"
+      self.weapon_damage_types_attributes = { id: id, _destroy: true }
+    when "properties"
+      self.weapon_properties_attributes = { id: id, _destroy: true }
+    end
+    self.save
+  end
 
   private
 

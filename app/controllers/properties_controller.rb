@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:edit, :update, :destroy]
   before_action :index_view, only: [:index]
-  before_action :can_edit, only: [:edit, :update, :destroy]
+  before_action :editable, only: [:edit, :update, :destroy]
 
   def index
     @properties = Property.viewable_props(current_user)
@@ -52,10 +52,8 @@ class PropertiesController < ApplicationController
       params.require(:property).permit(:name, :description, :view_status)
     end
 
-    def can_edit
+    def editable
       return true if current_user.admin?
-
-      @property = Property.friendly.find(params[:id])
       redirect_to(root_path) unless current_user.id == @property.user_id
     end
 end
