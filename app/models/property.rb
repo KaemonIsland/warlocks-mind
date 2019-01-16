@@ -1,5 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :user, foreign_key: "user_id", optional: true
+  has_many :weapon_properties
+  has_many :weapons, through: :weapon_properties
   before_save :capitalize
   
   extend FriendlyId

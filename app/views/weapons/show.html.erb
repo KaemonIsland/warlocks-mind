@@ -15,10 +15,19 @@
 <% end %>
 
 <% if @weapon.damage_types.any? %>
-  <p>Damage Type(s):</p>
+  <p>Damage Types:</p>
   <ul>
     <% @weapon.weapon_damage_types.each_with_index do |damage_type, index| %>
-      <li><%= @weapon.damage_types[index.to_i].name %> <%= link_to "Remove", remove_path(@weapon, damage_type.id), method: :delete, data: { confirm: "Are you sure?"} if can_edit?(@weapon) %></li>
+      <li><%= DamageType.find(damage_type.damage_type_id).name %> <%= link_to "Remove", remove_path(@weapon, 'damage_types', damage_type.id), method: :delete, data: { confirm: "Are you sure?"} if can_edit?(@weapon) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @weapon.properties.any? %>
+  <p>Properties:</p>
+  <ul>
+    <% @weapon.weapon_properties.each_with_index do |property, index| %>
+      <li><%= Property.find(property.property_id).name %> <%= link_to "Remove", remove_path(@weapon, 'properties', property.id), method: :delete, data: { confirm: "Are you sure?"} if can_edit?(@weapon) %></li>
     <% end %>
   </ul>
 <% end %>

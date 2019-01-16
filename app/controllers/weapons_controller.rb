@@ -12,14 +12,19 @@ class WeaponsController < ApplicationController
   end
 
   def edit
-    unless @weapon.damage_types.any?
+    unless @weapon.damage_types.count >= 1
       1.times { @weapon.weapon_damage_types.build }
+    end
+
+    unless @weapon.properties.count >= 1
+      1.times { @weapon.weapon_properties.build }
     end
   end
 
   def new
     @weapon = current_user.weapons.new
     1.times { @weapon.weapon_damage_types.build }
+    1.times { @weapon.weapon_properties.build }
   end
 
   def create
@@ -37,12 +42,7 @@ class WeaponsController < ApplicationController
   end
 
   def update
-    if !params[:weapon][:weapon_damage_types_attributes]["0"][:damage_type_id].blank?
-      if dublicate_id?(params[:weapon][:weapon_damage_types_attributes]["0"][:damage_type_id].to_i)
-        flash[:danger] = "Damage Type is already added to this weapon"
-        render 'edit'
-      end
-    elsif @weapon.update_attributes(weapon_params)
+    if @weapon.update_attributes(weapon_params)
       flash[:success] = "#{@weapon.name} has been updated"
       redirect_to @weapon
     else
@@ -57,8 +57,8 @@ class WeaponsController < ApplicationController
   end
 
   def remove_attribute
-    flash[:warning] = "Damage Type has been removed"
-    @weapon.remove("damage_types", params[:index])
+    flash[:warning] = "Attribute has been removed"
+    @weapon.remove(params[:attr], params[:index])
     redirect_to @weapon
   end
 
@@ -78,7 +78,22 @@ class WeaponsController < ApplicationController
     end
 
     def weapon_params
-      params.require(:weapon).permit(:name, :category, :cost_amount, :cost_type, :damage_amount, :damage_die, :weight, :range_near, :range_far, :view_status, :versatile_amount, :versatile_die, :description, weapon_damage_types_attributes: [:damage_type_id])
+      params.require(:weapon).permit(:name, 
+                                     :category, 
+                                     :cost_amount, 
+                                     :cost_type, 
+                                     :damage_amount, 
+                                     :damage_die, 
+                                     :weight, 
+                                     :range_near, 
+                                     :range_far, 
+                                     :view_status, 
+                                     :versatile_amount, 
+                                     :versatile_die, 
+                                     :description, 
+                                     weapon_damage_types_attributes: [:damage_type_id],
+                                     weapon_properties_attributes: [:property_id]
+                                     )
     end
 
     def viewable
