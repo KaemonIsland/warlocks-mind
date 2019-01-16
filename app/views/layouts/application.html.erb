@@ -8,11 +8,9 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <div class="container main">
-      <%= render 'layouts/flash' %>
-    </div>
+    <h1>Hello Kaemon!</h1>
       <%= yield %>
+      
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
