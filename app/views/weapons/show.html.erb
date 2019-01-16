@@ -37,7 +37,7 @@
 <p>Damage: <%= @weapon.damage_amount %>d<%= @weapon.damage_die %></p>
 <p>Weight: <%= pluralize(@weapon.weight, 'lb', 'lbs') %></p>
 
-<% if @weapon.category == "simple_ranged" || @weapon.category == "martial_ranged" %>
+<% if !@weapon.range_near.nil? || !@weapon.range_far.nil? %>
   <p>Range: 
     (<%= @weapon.range_near %> / <%= @weapon.range_far %>)
   </p>
