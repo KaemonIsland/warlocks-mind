@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def full_title(page_title = '')
-    title = "Warlocks Mind"
+    title = "Warlock Mind"
     page_title.empty? ? title : "#{page_title} | #{title}"
   end
 

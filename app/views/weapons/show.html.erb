@@ -45,3 +45,15 @@
 <% if !@weapon.description.blank? %>
   <p>Description: <%= @weapon.description %></p>
 <% end %>
+
+<hr />
+
+<h1><%= @weapon.weapon_feats.any? ? 'Feats' : 'Add Feats' %></h1>
+<%= link_to 'New Feat',  new_weapon_weapon_feat_path(@weapon), class: 'btn btn-outline-primary' %>
+
+<% if @weapon.weapon_feats.any? %>
+  <% @weapon.weapon_feats.each do |feat| %>
+    <h4><%= feat.title %></h4>
+    <p><%= feat.description %></p>
+  <% end %>
+<% end %>

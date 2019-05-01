@@ -3,6 +3,7 @@ class Weapon < ApplicationRecord
   has_many :damage_types, through: :weapon_damage_types
   has_many :weapon_properties
   has_many :properties, through: :weapon_properties
+  has_many :weapon_feats
   belongs_to :user, optional: true
 
   accepts_nested_attributes_for :weapon_damage_types, 
