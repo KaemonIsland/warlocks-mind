@@ -30,7 +30,7 @@ puts "16 Users created"
 
 def return_stats()
   {
-    name: Faker::Pokemon.unique.name,
+    name: Faker::Name.unique.name,
     description: Faker::Lorem.sentences(5).join(' '),
     view_status: rand(2).even? ? 'personal' : 'everyone',
     user_id: rand(2).even? ? 1 : 2
@@ -62,7 +62,7 @@ puts "30 Damage Types Added"
   category = rand 4
 
   Weapon.create!(
-    name: Faker::Pokemon.unique.move,
+    name: Faker::Name.unique.name,
     category: rand(4),
     cost_amount: rand(20),
     cost_type: rand(5),
