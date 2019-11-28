@@ -1,0 +1,9 @@
+<% provide(:title, "Edit Weapon Feat") %>
+<% provide(:button_text, "Edit Weapon Feat") %>
+<% provide(:url_path, weapon_feat_path(@weapon_feat, { weapon_id: @weapon.id })) %>
+
+<h1>Edit Weapon Feat</h1>
+
+<div class="row justify-content-center">
+  <%= render "form" %>
+</div>

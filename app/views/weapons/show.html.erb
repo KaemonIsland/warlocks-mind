@@ -55,5 +55,11 @@
   <% @weapon.weapon_feats.each do |feat| %>
     <h4><%= feat.title %></h4>
     <p><%= feat.description %></p>
+    <% if can_edit? @weapon %>
+      <%= link_to "Update", edit_weapon_feat_path(feat, { weapon_id: @weapon.id }), class: "item__link btn btn-outline-secondary btn-sm" %>
+    <% end %>
+    <% if can_edit? @weapon %>
+      <%= link_to "Delete", weapon_feat_path(feat, { weapon_id: @weapon.id }), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>
+    <% end %>
   <% end %>
 <% end %>
