@@ -16,6 +16,6 @@ module ApplicationHelper
   end
 
   def can_edit?(model)
-    current_user.admin? || current_user.id == model.user_id
+    current_user.id == model.user_id
   end
 end

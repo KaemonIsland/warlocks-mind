@@ -45,7 +45,7 @@ RSpec.describe WeaponsController, type: :request do
       weapon = create(:weapon, user_id: @user.id)
       get weapon_path(weapon)
       expect(response).to render_template "weapons/show"
-      expect(response.body).to include("#{weapon.name} | Warlocks Mind")
+      expect(response.body).to include("#{weapon.name} | Warlock Mind")
       weapon_info = ["name", "cost_type", "description"]
       weapon_info.each do |item|
         expect(response.body).to include(weapon[item]), "#{weapon[item]} was not present"
@@ -77,7 +77,7 @@ RSpec.describe WeaponsController, type: :request do
     it "renders new template and has New Weapon title" do
       get new_user_weapon_path @user
       expect(response).to render_template("weapons/new")
-      expect(response.body).to include("New Weapon | Warlocks Mind")
+      expect(response.body).to include("New Weapon | Warlock Mind")
     end
 
     it "renders the correct form" do

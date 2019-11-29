@@ -16,7 +16,7 @@ RSpec.describe DamageTypesController, type: :request do
 
     it "has damage_types in the title" do
       get user_damage_types_path @user
-      expect(response.body).to include("Damage Types | Warlocks Mind")
+      expect(response.body).to include("Damage Types | Warlock Mind")
     end
 
     it "has a key for Personal and Everyone view status" do
@@ -129,7 +129,7 @@ RSpec.describe DamageTypesController, type: :request do
     it "changes title to Edit damage_type" do
       prop = create(:damage_type, user_id: @user.id)
       get edit_damage_type_path prop
-      expect(response.body).to include("Edit Damage Type | Warlocks Mind")
+      expect(response.body).to include("Edit Damage Type | Warlock Mind")
     end
   end
 

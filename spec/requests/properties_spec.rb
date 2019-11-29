@@ -16,7 +16,7 @@ RSpec.describe PropertiesController, type: :request do
 
     it "has Properties in the title" do
       get user_properties_path @user
-      expect(response.body).to include("Properties | Warlocks Mind")
+      expect(response.body).to include("Properties | Warlock Mind")
     end
 
     it "has a key for Personal and Everyone view status" do
@@ -129,7 +129,7 @@ RSpec.describe PropertiesController, type: :request do
     it "changes title to Edit Property" do
       prop = create(:property, user_id: @user.id)
       get edit_property_path prop
-      expect(response.body).to include("Edit Property | Warlocks Mind")
+      expect(response.body).to include("Edit Property | Warlock Mind")
     end
   end
 

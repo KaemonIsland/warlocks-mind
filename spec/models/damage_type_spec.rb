@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe DamageType, type: :model do
   before(:each) do
-    user = create(:user)
     @damage_type = build(:damage_type)
   end
 

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Property, type: :model do
   before(:each) do
-    user = create(:user)
     @property = build(:property)
   end
 

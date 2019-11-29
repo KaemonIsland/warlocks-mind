@@ -46,10 +46,14 @@
   <p>Description: <%= @weapon.description %></p>
 <% end %>
 
-<hr />
+<% if @weapon.weapon_feats.any? %>
+  <hr />
+  <h1>Feats</h1>
+<% end %>
 
-<h1><%= @weapon.weapon_feats.any? ? 'Feats' : 'Add Feats' %></h1>
-<%= link_to 'New Feat',  new_weapon_weapon_feat_path(@weapon), class: 'btn btn-outline-primary' %>
+<% if can_edit? @weapon %>
+  <%= link_to 'New Feat',  new_weapon_weapon_feat_path(@weapon), class: 'btn btn-outline-primary' %>
+<% end %>
 
 <% if @weapon.weapon_feats.any? %>
   <% @weapon.weapon_feats.each do |feat| %>
@@ -57,8 +61,6 @@
     <p><%= feat.description %></p>
     <% if can_edit? @weapon %>
       <%= link_to "Update", edit_weapon_feat_path(feat, { weapon_id: @weapon.id }), class: "item__link btn btn-outline-secondary btn-sm" %>
-    <% end %>
-    <% if can_edit? @weapon %>
       <%= link_to "Delete", weapon_feat_path(feat, { weapon_id: @weapon.id }), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>
     <% end %>
   <% end %>

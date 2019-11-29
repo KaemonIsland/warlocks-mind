@@ -12,10 +12,7 @@ class WeaponFeatsController < ApplicationController
   def create
     @weapon_feat = @weapon.weapon_feats.new(weapon_feat_params)
 
-    if current_user.admin? == false && params[:weapon][:view_status] == 'everyone'
-      flash[:warning] = "View status not allowed"
-      render 'new'
-    elsif @weapon_feat.save
+    if @weapon_feat.save
       flash[:success] = "#{@weapon_feat.title} has been created"
       redirect_to @weapon
     else
@@ -45,11 +42,11 @@ class WeaponFeatsController < ApplicationController
     end
 
     def set_weapon_feat
-      @weapon = current_user.weapons.find(params[:weapon_id])
+      @weapon = Weapon.find(params[:weapon_id])
       @weapon_feat = @weapon.weapon_feats.find(params[:id])
     end
 
     def set_weapon
-      @weapon = current_user.weapons.find(params[:weapon_id])
+      @weapon = Weapon.find(params[:weapon_id])
     end
 end
