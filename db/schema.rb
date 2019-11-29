@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_004929) do
+ActiveRecord::Schema.define(version: 2019_11_29_181143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "armors", force: :cascade do |t|
+    t.string "name"
+    t.integer "category"
+    t.integer "armor_class"
+    t.integer "armor_class_ability"
+    t.integer "armor_class_max"
+    t.string "armor_class_modifier"
+    t.integer "strength_requirement"
+    t.boolean "stealth_disadvantage"
+    t.integer "cost_amount"
+    t.integer "cost_type"
+    t.string "notes"
+    t.integer "weight"
+    t.integer "don"
+    t.string "don_time"
+    t.integer "doff"
+    t.string "doff_time"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_armors_on_user_id"
+  end
 
   create_table "damage_types", force: :cascade do |t|
     t.integer "view_status", default: 0
@@ -104,5 +127,6 @@ ActiveRecord::Schema.define(version: 2019_04_30_004929) do
     t.index ["user_id"], name: "index_weapons_on_user_id"
   end
 
+  add_foreign_key "armors", "users"
   add_foreign_key "weapons", "users"
 end

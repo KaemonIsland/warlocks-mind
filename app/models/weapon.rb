@@ -22,7 +22,7 @@ class Weapon < ApplicationRecord
 
   validates :category, presence: true,
                        inclusion: { in: ["simple_melee", "simple_ranged", "martial_melee", "martial_ranged"],
-                       message: "%{value} is not a valid category" }
+                       message: "This is not a valid category" }
 
   enum category: [:simple_melee, :simple_ranged, :martial_melee, :martial_ranged]
 
