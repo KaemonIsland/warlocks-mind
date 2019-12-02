@@ -1,0 +1,9 @@
+<% provide(:title, "All Armor") %>
+
+<h1>All Armor</h1>
+
+<%= link_to "Create new Armor", new_user_armor_path(current_user) %>
+
+<% @armors.each do |armor| %>
+  <%= render "armor", armor: armor %>
+<% end %>

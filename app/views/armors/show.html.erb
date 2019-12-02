@@ -1,0 +1,34 @@
+<% provide(:title, @armor.name) %>
+
+<h1><%= @armor.name %></h1>
+
+<div><%= @armor.category.capitalize %> Armor</div>
+
+<div>AC: <%= @armor.armor_class %> + <%= @armor.armor_class_ability.capitalize %> (Max <%= @armor.armor_class_max %>)</div>
+
+or
+
+<div><%= @armor.armor_class_modifier %></div>
+
+<% if @armor.strength_requirement %>
+  <div>Required Strength: <%= @armor.strength_requirement %></div>
+<% end %>
+
+<% if @armor.stealth_disadvantage %>
+  <div>Stealth Disadvantage</div>
+<% end %>
+
+<div>Cost: <%= @armor.cost_amount %> <%= @armor.cost_type %></div>
+
+<div>Weight: <%= @armor.weight %> lbs</div>
+
+<div>Don: <%= @armor.don %> <%= @armor.don_time %></div>
+<div>Doff: <%= @armor.doff %> <%= @armor.doff_time %></div>
+
+<div>Notes: <%= @armor.notes %></div>
+
+<% if can_edit? @armor %>
+  <hr />
+  <%= link_to "Update", edit_armor_path(@armor), class: 'btn btn-warning' %>
+  <%= link_to "Delete", armor_path(@armor), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
