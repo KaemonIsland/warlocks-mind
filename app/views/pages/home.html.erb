@@ -2,7 +2,7 @@
   <h1>Welcome to <span class="home-title">Warlock Mind</span>, <%= current_user.first_name %></h1>
 
   <h2>This is one of many projects made by Kaemon Lovendahl! You can find other projects on my
-    <a href="http://kaemonlovendahl.herokuapp.com/", target="_blank">portfolio website</a>.</h2>
+    <a href="http://kaemon-lovendahl.surge.sh/", target="_blank">portfolio website</a>.</h2>
 
   <p>Warlock Mind is designed to make playing 5th edition much easier, so that you can spend less time:</p>
   <ul class="home__list">
@@ -11,6 +11,16 @@
     <li>Finding Equipment, Spells, and Adventuring gear.</li>
   </ul>
   <p>In order to focus on the game!</p>
+
+  <hr />
+
+  <p><em>
+    Please take into account that this project is a work in progress. I am continuously adding more features as I hope to include tracking of all things D&D.
+    <br />
+    Eventually I plan on adding React as the front end for this application in order to provide a better user experience.
+  </em></p>
+
+  <hr />
 
   <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-outline-primary" %>
   <div class='home__dice'>
