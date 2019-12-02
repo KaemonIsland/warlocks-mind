@@ -20,26 +20,29 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :armor_class, "AC" %>
-      <div class="row">
-        <div class="col">
-          <%= f.number_field :armor_class %>
-        </div>
-        <div class="col">
-          <%= f.select(:armor_class_ability, options_for_select([
-            ["Strength", "strength"],
-            ["Dexterity", "dexterity"],
-            ["Constitution", "constitution"],
-            ["Intellect", "intellect"],
-            ["Wisdom", "wisdom"],
-            ["Charisma", "charisma"],
-            ]), {}, class: "form-control")
-          %>
-        </div>
-      </div>
+      <%= f.label :armor_class, "AC Provided by Armor" %>
+      <%= f.number_field :armor_class, class: "form-control" %>
     </div>
 
-    <%= f.label :armor_class_modifier, "Or Armor Modifier (shield)"%>
+    <div class="form-group">
+      <%= f.label :armor_class_ability %>
+        <%= f.select(:armor_class_ability, options_for_select([
+          ["Strength", "strength"],
+          ["Dexterity", "dexterity"],
+          ["Constitution", "constitution"],
+          ["Intellect", "intellect"],
+          ["Wisdom", "wisdom"],
+          ["Charisma", "charisma"],
+          ]), {}, class: "form-control")
+        %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :armor_class_max, "Max bonus from ability" %>
+      <%= f.number_field :armor_class_max, class: 'form-control' %>
+    </div>
+
+    <%= f.label :armor_class_modifier, "Or AC Modifier, \"+ 2\"" %>
     <div class="form-group">
       <%= f.text_field :armor_class_modifier %>
     </div>
