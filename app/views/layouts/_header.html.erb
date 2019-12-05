@@ -27,6 +27,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Weapons", user_weapons_path(current_user), class: 'dropdown-item' %>
+            <%= link_to "Adventure Gear", user_gears_path(current_user), class: 'dropdown-item' %>
             <%= link_to "Armor", user_armors_path(current_user), class: 'dropdown-item' %>
             <%= link_to "Properties", user_properties_path(current_user), class: 'dropdown-item' %>
             <%= link_to "Damage Types", user_damage_types_path(current_user), class: 'dropdown-item' %>

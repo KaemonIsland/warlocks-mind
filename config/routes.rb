@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :properties, shallow: true, except: [:show]
     resources :damage_types, shallow: true, except: [:show]
     resources :armors, shallow: true
+    resources :gears, shallow: true
     resources :weapons, shallow: true do
       resources :weapon_feats, shallow: true, except: [:show, :index]
     end

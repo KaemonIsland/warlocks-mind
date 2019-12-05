@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_181143) do
+ActiveRecord::Schema.define(version: 2019_12_02_015141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,19 @@ ActiveRecord::Schema.define(version: 2019_11_29_181143) do
     t.string "slug"
     t.index ["slug"], name: "index_damage_types_on_slug", unique: true
     t.index ["user_id"], name: "index_damage_types_on_user_id"
+  end
+
+  create_table "gears", force: :cascade do |t|
+    t.string "name"
+    t.integer "category"
+    t.integer "cost_amount"
+    t.integer "cost_type"
+    t.integer "weight"
+    t.string "notes"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_gears_on_user_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -128,5 +141,6 @@ ActiveRecord::Schema.define(version: 2019_11_29_181143) do
   end
 
   add_foreign_key "armors", "users"
+  add_foreign_key "gears", "users"
   add_foreign_key "weapons", "users"
 end

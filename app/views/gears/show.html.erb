@@ -1,0 +1,16 @@
+<h1><%= @gear.name %></h1>
+<h2><%= @gear.category %></h2>
+<%= link_to "All Gear", user_gears_path(current_user) %>
+
+<br />
+<br />
+
+<p>Cost: <%= @gear.cost_amount %> <%= @gear.cost_type %></p>
+<p>Weight: <%= @gear.weight %> lbs</p>
+
+<p><%= @gear.notes %></p>
+
+<% if can_edit? @gear %>
+  <%= link_to "Update", edit_gear_path(@gear), class: 'btn btn-warning' %>
+  <%= link_to "Delete", gear_path(@gear), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>

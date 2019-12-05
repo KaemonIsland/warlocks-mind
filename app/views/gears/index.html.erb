@@ -1,0 +1,9 @@
+<% provide(:title, "All Gear!") %>
+
+<h1>All Adventure Gear</h1>
+
+<%= link_to 'Create new Gear', new_user_gear_path(current_user) %>
+
+<% @gears.each do |gear|%>
+  <%= render "gear", gear: gear %>
+<% end %>

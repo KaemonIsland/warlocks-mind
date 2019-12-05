@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :weapons
   has_many :armors
+  has_many :gears
   has_many :properties
   has_many :damage_types
   # Include default devise modules. Others available are:
