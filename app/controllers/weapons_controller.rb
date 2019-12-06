@@ -1,11 +1,10 @@
 class WeaponsController < ApplicationController
   before_action :set_weapon, only: [:show, :edit, :update, :destroy, :remove_attribute]
-  before_action :index_view, only: [:index]
-  before_action :viewable, only: [:show]
+  before_action :has_permission?, only: [:show, :edit, :update, :destroy, :remove_attribute]
   before_action :editable, only: [:edit, :udpate, :destroy]
 
   def index
-    @weapons = Weapon.all
+    @weapons = current_user.weapons
   end
 
   def show
@@ -30,10 +29,7 @@ class WeaponsController < ApplicationController
   def create
     @weapon = current_user.weapons.new(weapon_params)
 
-    if current_user.admin? == false && params[:weapon][:view_status] == 'everyone'
-      flash[:warning] = "View status not allowed"
-      render 'new'
-    elsif @weapon.save
+    if @weapon.save
       flash[:success] = "#{@weapon.name} has been created"
       redirect_to @weapon
     else
@@ -86,29 +82,21 @@ class WeaponsController < ApplicationController
                                      :damage_die, 
                                      :weight, 
                                      :range_near, 
-                                     :range_far, 
-                                     :view_status, 
+                                     :range_far,
                                      :versatile_amount, 
                                      :versatile_die, 
-                                     :description, 
+                                     :notes, 
                                      weapon_damage_types_attributes: [:damage_type_id],
                                      weapon_properties_attributes: [:property_id]
                                      )
     end
 
-    def viewable
-      return true if current_user.admin?
-
-      @weapon = Weapon.find(params[:id])
-      if @weapon.view_status == "everyone"
-        return true
-      else
-        redirect_to(root_path) unless current_user.id == @weapon.user_id
-      end
-    end
-
     def editable
       return true if current_user.admin?
      redirect_to root_path unless current_user.id == @weapon.user_id
+    end
+
+    def has_permission?
+      require_permission Weapon.find(params[:id]).user
     end
 end

@@ -25,13 +25,8 @@ RSpec.describe Property, type: :model do
     expect(@new_property).to_not be_valid
   end
 
-  it 'is invalid with an empty description' do
-    @property.description = ''
+  it 'is invalid with an empty notes' do
+    @property.notes = ''
     expect(@property).to_not be_valid
-  end
-
-  it 'uses enums for view status' do
-    @property.view_status = 'personal'
-    expect(@property).to be_valid
   end
 end

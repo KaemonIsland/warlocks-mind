@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_015141) do
+ActiveRecord::Schema.define(version: 2019_12_06_013614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,8 @@ ActiveRecord::Schema.define(version: 2019_12_02_015141) do
   end
 
   create_table "damage_types", force: :cascade do |t|
-    t.integer "view_status", default: 0
     t.string "name"
-    t.text "description"
+    t.text "notes"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,9 +63,8 @@ ActiveRecord::Schema.define(version: 2019_12_02_015141) do
   end
 
   create_table "properties", force: :cascade do |t|
-    t.integer "view_status", default: 0
     t.string "name"
-    t.text "description"
+    t.text "notes"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,7 +101,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_015141) do
 
   create_table "weapon_feats", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.string "notes"
     t.bigint "weapon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -129,10 +127,9 @@ ActiveRecord::Schema.define(version: 2019_12_02_015141) do
     t.integer "weight"
     t.integer "range_near"
     t.integer "range_far"
-    t.integer "view_status", default: 0
     t.integer "versatile_amount"
     t.integer "versatile_die"
-    t.string "description"
+    t.string "notes"
     t.integer "modifier"
     t.bigint "user_id"
     t.datetime "created_at", null: false

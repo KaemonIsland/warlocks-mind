@@ -60,26 +60,18 @@ RSpec.describe Weapon, type: :model do
     expect(@weapon).to be_valid
   end
 
-  it "is valid with a valid view status" do
-    possible_view = %w(personal homebrew everyone)
-    possible_view.each do |view|
-      @weapon.view_status = view
-      expect(@weapon).to be_valid, "#{view} is not a valid view status"
-    end
-  end
-
   it "is valid with nil versatile settings" do
     @weapon.versatile_amount = @weapon.versatile_die = nil
     expect(@weapon).to be_valid
   end
 
-  it "is valid with an empty description" do
-    @weapon.description = nil
+  it "is valid with an empty notes" do
+    @weapon.notes = nil
     expect(@weapon).to be_valid
   end
 
-  it "is invalid with a description over 500 words" do
-    @weapon.description = 'hello' * 101
+  it "is invalid with a notes over 500 words" do
+    @weapon.notes = 'hello' * 101
     expect(@weapon).to_not be_valid
   end
 

@@ -31,8 +31,7 @@ puts "16 Users created"
 def return_stats(name)
   {
     name: name,
-    description: Faker::Lorem.sentences(number: 5).join(' '),
-    view_status: rand(2).even? ? 'personal' : 'everyone',
+    notes: Faker::Lorem.sentences(number: 5).join(' '),
     user_id: rand(2).even? ? 1 : 2
   }
 end
@@ -42,8 +41,7 @@ def create_property_damage(model, names_arr)
   fake = return_stats(names_arr[i])
   model.create!(
     name: fake[:name],
-    description: fake[:description],
-    view_status: fake[:view_status],
+    notes: fake[:notes],
     user_id: fake[:user_id]
   )
   end
@@ -161,8 +159,7 @@ weapon_names.each do |category:, names:|
       weight: 1 + rand(20),
       range_near: category == 1 || category == 3 ? rand(60) : nil,
       range_far: category == 1 || category == 3 ? rand(250) : nil,
-      view_status: rand(2).even? ? 'personal' : 'everyone',
-      description: Faker::Lorem.sentences(number: 5).join(' '),
+      notes: Faker::Lorem.sentences(number: 5).join(' '),
       modifier: 1 + rand(4),
       user_id: 1 + rand(2)
     )

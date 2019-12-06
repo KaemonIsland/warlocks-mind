@@ -9,11 +9,9 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :description, "Damage Type Description" %>
-      <%= f.text_area :description, class: "form-control" %>
+      <%= f.label :notes, "Damage Type Description" %>
+      <%= f.text_area :notes, class: "form-control" %>
     </div>
-
-      <%= render 'layouts/view_status', f: f %>
 
     <div class="form-group">
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>

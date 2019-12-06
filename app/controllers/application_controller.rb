@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
   include DeviseWhitelist
-  include IndexView
+  include RequirePermission
   include CurrentUserConcern
 end

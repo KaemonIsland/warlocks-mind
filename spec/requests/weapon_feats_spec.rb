@@ -25,18 +25,18 @@ RSpec.describe WeaponFeatsController, type: :request do
       get new_weapon_weapon_feat_path @weapon
       post weapon_weapon_feats_path(@weapon), params: { weapon_feat: {
         title: '',
-        description: 'This is a description'
+        notes: 'This is some notes'
       }}
       expect(flash.empty?).to be true
       expect(response.body).to include("The form contains 1 error.")
       expect(response).to_not redirect_to("weapons/show")
     end
 
-    it "renders errors if description is blank" do
+    it "renders errors if notes is blank" do
       get new_weapon_weapon_feat_path @weapon
       post weapon_weapon_feats_path(@weapon), params: { weapon_feat: {
         title: 'Darkvision',
-        description: ''
+        notes: ''
       }}
       expect(flash.empty?).to be true
       expect(response.body).to include("The form contains 1 error.")
@@ -47,7 +47,7 @@ RSpec.describe WeaponFeatsController, type: :request do
       get new_weapon_weapon_feat_path @weapon
       post weapon_weapon_feats_path(@weapon), params: { weapon_feat: {
         title: 'Darkvision',
-        description: 'Grants the user darkvision'
+        notes: 'Grants the user darkvision'
       }}
       expect(response).to redirect_to weapon_path @weapon
       follow_redirect!
@@ -70,7 +70,7 @@ RSpec.describe WeaponFeatsController, type: :request do
 
       patch weapon_feat_path(@weapon_feat, params: { weapon_feat: {
         title: 'Darkervision',
-        description: 'Grants the user darkervision'
+        notes: 'Grants the user darkervision'
       }, weapon_id: @weapon.id })
       expect(response).to redirect_to weapon_path @weapon
       follow_redirect!

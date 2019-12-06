@@ -1,7 +1,0 @@
-<% view_status = [['Personal', 'personal']] %>
-<% view_status << ['Everyone', 'everyone'] if current_user.admin? %>
-
-<div class="form-group">
-  <%= f.label :view_status, "View Status" %>
-  <%= f.select(:view_status, options_for_select(view_status), {}, class: 'form-control') %>
-</div>

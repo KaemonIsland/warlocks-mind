@@ -1,10 +1,10 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:edit, :update, :destroy]
-  before_action :index_view, only: [:index]
+  before_action :has_permission?, only: [:edit, :update, :destroy]
   before_action :editable, only: [:edit, :update, :destroy]
 
   def index
-    @properties = Property.viewable_props(current_user)
+    @properties = current_user.properties
   end
 
   def new
@@ -17,10 +17,7 @@ class PropertiesController < ApplicationController
   def create
     @property = current_user.properties.new(property_params)
 
-    if current_user.admin? == false && params[:property][:view_status] == 'everyone'
-      flash[:warning] = "View status not allowed"
-      render 'new'
-    elsif @property.save
+    if @property.save
       flash[:success] = "#{@property.name} has been created"
       redirect_to user_properties_path
     else
@@ -49,11 +46,15 @@ class PropertiesController < ApplicationController
     end
 
     def property_params
-      params.require(:property).permit(:name, :description, :view_status)
+      params.require(:property).permit(:name, :notes)
     end
 
     def editable
       return true if current_user.admin?
       redirect_to(root_path) unless current_user.id == @property.user_id
+    end
+
+    def has_permission?
+      require_permission Property.friendly.find(params[:id]).user
     end
 end

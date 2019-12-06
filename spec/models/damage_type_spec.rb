@@ -25,13 +25,8 @@ RSpec.describe DamageType, type: :model do
     expect(@new_damage_type).to_not be_valid
   end
 
-  it 'is invalid with an empty description' do
-    @damage_type.description = ''
+  it 'is invalid with an empty notes' do
+    @damage_type.notes = ''
     expect(@damage_type).to_not be_valid
-  end
-
-  it 'uses enums for view status' do
-    @damage_type.view_status = 'personal'
-    expect(@damage_type).to be_valid
   end
 end

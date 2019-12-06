@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header item__view--<%= damage_type.view_status %>" id="headingThree">
+  <div class="card-header" id="headingThree">
     <h5 class="mb-0">
       <button class="btn btn-link collapsed item__title" 
               type="button" 
@@ -16,7 +16,7 @@
        aria-labelledby="headingThree" 
        data-parent="#accordionExample">
     <div class="card-body">
-      <%= damage_type.description %> <br />
+      <%= damage_type.notes %> <br />
       <% if can_edit? damage_type %>
         <%= link_to "Update", edit_damage_type_path(damage_type), class: "item__link btn btn-outline-secondary btn-sm" %>
       <% end %>

@@ -14,25 +14,6 @@ RSpec.describe WeaponsController, type: :request do
       expect(response.body).to include("All Weapons")
     end
 
-    it 'only allows the logged in user to view their own properties' do
-      alt_user = create(:user)
-      get user_weapons_path alt_user
-      expect(response).to redirect_to root_path
-    end
-
-    it "renders view status template" do
-    get user_weapons_path @user
-    expect(response).to render_template("layouts/_viewable_key")
-    end
-
-    it 'renders weapon category headers if weapon is present' do
-      weapon = create(:weapon, category: "simple_melee", view_status: 'everyone')
-      get user_weapons_path @user
-      expect(response.body).to include("Simple Melee")
-      expect(response.body).to include(weapon.name)
-      expect(response.body).to_not include("Simple Ranged")
-    end
-
     it "has a new weapon link" do
       get user_weapons_path @user
       expect(response.body).to include("Create a new weapon")
@@ -46,7 +27,7 @@ RSpec.describe WeaponsController, type: :request do
       get weapon_path(weapon)
       expect(response).to render_template "weapons/show"
       expect(response.body).to include("#{weapon.name} | Warlock Mind")
-      weapon_info = ["name", "cost_type", "description"]
+      weapon_info = ["name", "cost_type", "notes"]
       weapon_info.each do |item|
         expect(response.body).to include(weapon[item]), "#{weapon[item]} was not present"
       end
@@ -106,8 +87,7 @@ RSpec.describe WeaponsController, type: :request do
         damage_amount: 1,
         damage_die: 4,
         weight: 2,
-        description: "This is a club",
-        view_status: "personal"
+        notes: "This is a club"
       } }
       weapon = assigns(:weapon)
         expect(response).to redirect_to weapon_path weapon
@@ -128,8 +108,7 @@ RSpec.describe WeaponsController, type: :request do
         weight: 0,
         range_near: 20,
         range_far: 60,
-        description: "This is a dart",
-        view_status: "personal"
+        notes: "This is a dart",
       } }
       weapon = assigns(:weapon)
         expect(response).to redirect_to weapon_path weapon
@@ -150,8 +129,7 @@ RSpec.describe WeaponsController, type: :request do
         weight: 4,
         versatile_amount: 1,
         versatile_die: 10,
-        description: "This is a battleaxe",
-        view_status: "personal"
+        notes: "This is a battleaxe"
       } }
       weapon = assigns(:weapon)
         expect(response).to redirect_to weapon_path weapon
@@ -172,8 +150,7 @@ RSpec.describe WeaponsController, type: :request do
         weight: 1,
         range_near: 25,
         range_far: 100,
-        description: "This is a blowgun",
-        view_status: "personal"
+        notes: "This is a blowgun"
       } }
       weapon = assigns(:weapon)
         expect(response).to redirect_to weapon_path weapon
@@ -204,8 +181,7 @@ RSpec.describe WeaponsController, type: :request do
         weapon_damage_types_attributes: { "0" => { damage_type_id: '' } },
         range_near: 30,
         range_far: 300,
-        description: "This is an updated description",
-        view_status: "personal"
+        notes: "This is an updated notes"
       } }
       new_weapon = assigns(:weapon)
       expect(response).to redirect_to weapon_path new_weapon

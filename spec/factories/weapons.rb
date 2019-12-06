@@ -9,10 +9,9 @@ FactoryBot.define do
     weight { 2 }
     range_near { nil }
     range_far { nil }
-    view_status { 'personal' }
     versatile_amount { nil }
     versatile_die { nil }
-    description { "This is a long piece of wood" }
+    notes { "This is a long piece of wood" }
     modifier { 0 }
     user
   end

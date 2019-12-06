@@ -8,21 +8,9 @@ RSpec.describe PropertiesController, type: :request do
   end
 
   describe "Index" do
-    it 'only allows the logged in user to view their own properties' do
-      alt_user = create(:user)
-      get user_properties_path alt_user
-      expect(response).to redirect_to root_path
-    end
-
     it "has Properties in the title" do
       get user_properties_path @user
       expect(response.body).to include("Properties | Warlock Mind")
-    end
-
-    it "has a key for Personal and Everyone view status" do
-      get user_properties_path @user
-      expect(response.body).to include("view__everyone")
-      expect(response.body).to include("view__personal")
     end
   end
 
@@ -38,20 +26,11 @@ RSpec.describe PropertiesController, type: :request do
       expect(response).to render_template "properties/new"
     end
 
-    it "renders a form for name, description and view status" do
-      get new_user_property_path @user
-      form_elements = ["name", "description", "view_status"]
-
-      form_elements.each do |elem|
-        expect(response.body).to include(elem), "#{elem.inspect} was not found."
-      end
-    end
-
     it "accepts proper attributes on submit" do
       get new_user_property_path @user
       post user_properties_path(@user), params: { property: {
         name: "Light",
-        description: "This weapon is super light"
+        notes: "This weapon is super light"
       } }
       expect(flash.empty?).to be false
       expect(response).to redirect_to user_properties_path
@@ -64,40 +43,10 @@ RSpec.describe PropertiesController, type: :request do
       get new_user_property_path @user
       post user_properties_path(@user), params: { property: {
         name: '',
-        description: ''
+        notes: ''
       } }
       expect(response.body).to include("Name can&#39;t be blank")
-      expect(response.body).to include("Description can&#39;t be blank")
-    end
-
-    it "allows admin to select everyone view status" do
-      log_out @user
-      admin = create(:user, admin: true)
-      log_in_as admin
-      get new_user_property_path admin
-      post user_properties_path(admin), params: { property: {
-        name: "Light",
-        description: "This is a light weapon",
-        view_status: 'everyone'
-      } }
-      expect(response).to redirect_to user_properties_path
-      follow_redirect!
-      expect(response.body).to include("Light")
-      expect(response.body).to include("item__view--everyone")
-    end
-
-    it "doesn't allow non-admins to select everyone status" do
-      @user.admin = false
-      expect(@user.admin).to be false
-      get new_user_property_path @user
-      expect(response.body).to_not include("Everyone")
-      post user_properties_path(@user), params: { property: {
-        name: "Light",
-        description: "This is a light weapon",
-        view_status: 'everyone'
-      }}
-      expect(flash.empty?).to be false
-      expect(response.body).to_not redirect_to user_properties_path
+      expect(response.body).to include("Notes can&#39;t be blank")
     end
   end
 
@@ -110,20 +59,11 @@ RSpec.describe PropertiesController, type: :request do
       expect(response).to render_template("properties/edit")
       patch property_path(prop), params: { property: {
         name: "Updated Light",
-        description: "This is also Updated"
+        notes: "This is also Updated"
       }}
       expect(response).to redirect_to user_properties_path @user
       follow_redirect!
       expect(response.body).to include("Updated light")
-    end
-
-    it "does not allow non admins to edit properties with everyone view status" do
-      prop = create(:property, user_id: 132)
-      expect(@user.admin?).to be false
-      get user_properties_path @user
-      expect(response.body).to_not include("Update")
-      get edit_property_path prop
-      expect(response).to_not render_template("properties/edit")
     end
 
     it "changes title to Edit Property" do

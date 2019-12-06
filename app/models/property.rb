@@ -7,19 +7,15 @@ class Property < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  enum view_status: { personal: 0,
-                      homebrew: 1,
-                      everyone: 2 }
-
   validates :name, presence: true,
                    length: { maximum: 25 },
                    uniqueness: { case_sensitive: false }
 
-  validates :description, presence: true
+  validates :notes, presence: true
 
   private
     #Scopes
     def self.viewable_props(user)
-      where(view_status: 'personal', user_id: user.id).or(Property.where(view_status: 'everyone')).order(:name)
+      where(user_id: user.id).order(:name)
     end
 end

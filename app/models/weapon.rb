@@ -44,13 +44,7 @@ class Weapon < ApplicationRecord
   validates :damage_amount, 
             :damage_die, presence: true
 
-  validates :view_status, presence: true,
-                          inclusion: { in: %w(personal homebrew everyone),
-                          message: "%{value} is not a valid view status" }
-
-  enum view_status: [:personal, :homebrew, :everyone]
-
-  validates :description, presence: true,
+  validates :notes, presence: true,
                           allow_blank: true,
                           length: { maximum: 500 }
 
@@ -80,8 +74,8 @@ class Weapon < ApplicationRecord
 
     def self.weapon_index(category, user)
       where(category: category, 
-            user_id: user.id, 
-            view_status: 'personal').or(Weapon.where(category: category, 
-                                                     view_status: 'everyone')).order(:name)
+            user_id: user.id)
+            .or(Weapon.where(category: category))
+            .order(:name)
     end
 end

@@ -42,8 +42,8 @@
     (<%= @weapon.range_near %> / <%= @weapon.range_far %>)
   </p>
 <% end %>
-<% if !@weapon.description.blank? %>
-  <p>Description: <%= @weapon.description %></p>
+<% if !@weapon.notes.blank? %>
+  <p>notes: <%= @weapon.notes %></p>
 <% end %>
 
 <% if @weapon.weapon_feats.any? %>
@@ -58,7 +58,7 @@
 <% if @weapon.weapon_feats.any? %>
   <% @weapon.weapon_feats.each do |feat| %>
     <h4><%= feat.title %></h4>
-    <p><%= feat.description %></p>
+    <p><%= feat.notes %></p>
     <% if can_edit? @weapon %>
       <%= link_to "Update", edit_weapon_feat_path(feat, { weapon_id: @weapon.id }), class: "item__link btn btn-outline-secondary btn-sm" %>
       <%= link_to "Delete", weapon_feat_path(feat, { weapon_id: @weapon.id }), method: :delete, data: { confirm: "Are you sure?" }, class: "item__link btn btn-outline-secondary btn-sm" %>

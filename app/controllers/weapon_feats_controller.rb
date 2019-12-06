@@ -38,7 +38,7 @@ class WeaponFeatsController < ApplicationController
     private
 
     def weapon_feat_params
-      params.require(:weapon_feat).permit(:title, :description)
+      params.require(:weapon_feat).permit(:title, :notes)
     end
 
     def set_weapon_feat

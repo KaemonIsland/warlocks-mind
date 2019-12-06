@@ -1,10 +1,10 @@
 class DamageTypesController < ApplicationController
   before_action :set_damage_type, only: [:edit, :update, :destroy]
-  before_action :index_view, only: [:index]
+  before_action :has_permission?, only: [:edit, :update, :destroy]
   before_action :editable, only: [:edit, :update, :destroy]
 
   def index
-    @damage_types = DamageType.viewable_damage_types(current_user)
+    @damage_types = current_user.damage_types
   end
 
   def new
@@ -17,10 +17,7 @@ class DamageTypesController < ApplicationController
   def create
     @damage_type = current_user.damage_types.new(damage_type_params)
 
-    if current_user.admin? == false && params[:damage_type][:view_status] == 'everyone'
-      flash[:warning] = "View status not allowed"
-      render 'new'
-    elsif @damage_type.save
+    if @damage_type.save
       flash[:success] = "#{@damage_type.name} damage has been created"
       redirect_to user_damage_types_path
     else
@@ -46,7 +43,7 @@ class DamageTypesController < ApplicationController
   private
 
     def damage_type_params
-      params.require(:damage_type).permit(:name, :description, :view_status)
+      params.require(:damage_type).permit(:name, :notes)
     end
 
     def set_damage_type
@@ -56,5 +53,9 @@ class DamageTypesController < ApplicationController
     def editable
       return true if current_user.admin?
       redirect_to(root_path) unless current_user.id == @damage_type.user_id
+    end
+
+    def has_permission?
+      require_permission DamageType.friendly.find(params[:id]).user
     end
 end
