@@ -1,0 +1,9 @@
+<% provide(:title, "All Tools") %>
+
+<h1>All Tools</h1>
+
+<%= link_to "Create a new Tool", new_tool_path %>
+
+<% @tools.each do |tool| %>
+  <%= render "tool", tool: tool %>
+<% end %>

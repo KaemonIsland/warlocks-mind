@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @tool.category %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tool.name %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @tool.notes %>
+</p>
+
+<p>
+  <strong>Cost amount:</strong>
+  <%= @tool.cost_amount %>
+</p>
+
+<p>
+  <strong>Cost type:</strong>
+  <%= @tool.cost_type %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @tool.weight %>
+</p>
+
+<% if can_edit? @tool %>
+
+  <%= link_to 'Edit', edit_tool_path(@tool) %> |
+  <%= link_to 'Back', tools_path %> |
+  <%= link_to 'Delete', tool_path(@tool), method: :delete, data: { confirm: "Are you sure?" } %>
+
+<% end %>

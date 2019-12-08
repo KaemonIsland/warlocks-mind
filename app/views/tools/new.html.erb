@@ -1,0 +1,9 @@
+<% provide(:title, "New Tool") %>
+<% provide(:url_path, tools_path) %>
+<% provide(:button_text, "Create New Tool") %>
+
+<h1>New Tool</h1>
+
+<%= render 'form', tool: @tool %>
+
+<%= link_to 'Back', tools_path %>

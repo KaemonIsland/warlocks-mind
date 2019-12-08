@@ -26,8 +26,15 @@ module WarlocksMind
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      # Don't generate system test files.
+      g.system_tests nil
+      # Don't generate scaffold styles
+      g.scaffold_stylesheet false
+      # Dont' generate stylesheets
+      g.stylesheets false
+      # Don't generate javascript files
+      g.javascripts false
+    end
   end
 end

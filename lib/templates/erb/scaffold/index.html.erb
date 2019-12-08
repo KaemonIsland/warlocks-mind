@@ -1,0 +1,10 @@
+<% provide(:title, "All #{plural_table_name}") %>
+
+<h1>All <%= plural_table_name%></h1>
+
+<%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+  <%= render <%= singular_table_name %>, <%= singular_table_name %>: <%= singular_table_name %> %>
+
+<% end %>
+
+<%%= link_to 'Create New <%= singular_table_name.titleize %>', new_<%= singular_route_name %>_path %>

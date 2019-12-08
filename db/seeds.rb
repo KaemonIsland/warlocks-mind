@@ -294,3 +294,54 @@ gear_names.each do |category:, names:|
 end
 
 puts 'Gear added'
+
+tools = [
+  {
+    category: 'artisan_tool',
+    names: [
+      'Alchemists Supplies',
+      'Brewers Supplies',
+      'Calligraphers Supplies',
+    ]
+  },
+  {
+    category: 'general',
+    names: [
+      'Disguise Kit',
+      'Forgery Kit',
+      'Herbalism Kit',
+    ]
+  },
+  {
+    category: 'gaming_set',
+    names: [
+      'Dice Set',
+      'Dragonchess Set',
+      'Playing Card Set',
+    ]
+  },
+  {
+    category: 'musical_instrument',
+    names: [
+      'Bagpipes',
+      'Drum',
+      'Dulcimer',
+    ]
+  }
+]
+
+tools.each do |category:, names:|
+  names.each do |name|
+    Tool.create!(
+      name: name,
+      category: category,
+      cost_amount: rand(20),
+      cost_type: rand(5),
+      weight: 1 + rand(20),
+      notes: Faker::Lorem.sentences(number: 5).join(' '),
+      user_id: 1 + rand(2),
+    )
+  end
+end
+
+puts 'Tools added'

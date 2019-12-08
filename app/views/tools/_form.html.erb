@@ -1,0 +1,48 @@
+<%= form_for(@tool, url: yield(:url_path)) do |f| %>
+  <div class="form-group">
+    <%= render 'shared/error_messages', model: @tool %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category %>
+    <%= f.select(:category, options_for_select([
+      ["General", "general"],
+      ["Artisan Tool", "artisan_tool"],
+      ["Gaming Set", "gaming_set"],
+      ["Musical Instrument", "musical_instrument"]
+    ]), {}, class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, class: 'form-control' %>
+  </div>
+
+  <%= f.label :cost_amount, "Cost" %>
+  <div class="row">
+    <div class="col">
+      <%= f.number_field :cost_amount, class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= f.select(:cost_type, options_for_select([
+        ["Copper", "cp"],
+        ["Silver", "sp"],
+        ["Epsilon", "ep"],
+        ["Gold", "gp"],
+        ["Platinum", "pp"]
+      ]), {}, class: "form-control")%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :weight %>
+    <%= f.number_field :weight, class: 'form-control' %>
+  </div>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

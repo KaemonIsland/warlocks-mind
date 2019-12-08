@@ -1,0 +1,10 @@
+<% provide(:title, "Edit Tool") %>
+<% provide(:url_path, tool_path(@tool)) %>
+<% provide(:button_text, "Edit Tool") %>
+
+<h1>Editing Tool</h1>
+
+<%= render 'form', tool: @tool %>
+
+<%= link_to 'Show', @tool %> |
+<%= link_to 'Back', tools_path %>
