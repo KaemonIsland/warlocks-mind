@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :tools, shallow: true
+  resources :tools
+  resources :sources, except: [:show]
   resources :users do
     resources :properties, shallow: true, except: [:show]
     resources :damage_types, shallow: true, except: [:show]

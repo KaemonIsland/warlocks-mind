@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :sources
   has_many :weapons
   has_many :armors
   has_many :gears

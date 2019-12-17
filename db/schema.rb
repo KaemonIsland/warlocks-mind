@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_08_172009) do
+ActiveRecord::Schema.define(version: 2019_12_17_024008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sources_id"
+    t.index ["sources_id"], name: "index_armors_on_sources_id"
     t.index ["user_id"], name: "index_armors_on_user_id"
   end
 
@@ -45,7 +47,9 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.bigint "sources_id"
     t.index ["slug"], name: "index_damage_types_on_slug", unique: true
+    t.index ["sources_id"], name: "index_damage_types_on_sources_id"
     t.index ["user_id"], name: "index_damage_types_on_user_id"
   end
 
@@ -59,6 +63,8 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sources_id"
+    t.index ["sources_id"], name: "index_gears_on_sources_id"
     t.index ["user_id"], name: "index_gears_on_user_id"
   end
 
@@ -69,8 +75,18 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.bigint "sources_id"
     t.index ["slug"], name: "index_properties_on_slug", unique: true
+    t.index ["sources_id"], name: "index_properties_on_sources_id"
     t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sources_on_user_id"
   end
 
   create_table "tools", force: :cascade do |t|
@@ -83,6 +99,8 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sources_id"
+    t.index ["sources_id"], name: "index_tools_on_sources_id"
     t.index ["user_id"], name: "index_tools_on_user_id"
   end
 
@@ -147,11 +165,14 @@ ActiveRecord::Schema.define(version: 2019_12_08_172009) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sources_id"
+    t.index ["sources_id"], name: "index_weapons_on_sources_id"
     t.index ["user_id"], name: "index_weapons_on_user_id"
   end
 
   add_foreign_key "armors", "users"
   add_foreign_key "gears", "users"
+  add_foreign_key "sources", "users"
   add_foreign_key "tools", "users"
   add_foreign_key "weapons", "users"
 end

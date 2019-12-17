@@ -1,0 +1,7 @@
+<p><strong><%= source.name %></strong></p>
+
+<% if can_edit? source %>
+  <%= link_to "Update", edit_source_path(source), class: 'btn btn-info'%>
+  <%= link_to "Delete", source_path(source), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'%>
+<% end %>
+<br />

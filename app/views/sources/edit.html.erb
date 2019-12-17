@@ -1,0 +1,7 @@
+<% provide(:title, "Update Source") %>
+<% provide(:button_text, "Update Source") %>
+<% provide(:url_path, source_path(@source)) %>
+
+<h1>Update <%= @source.name %></h1>
+
+<%= render "form" %>

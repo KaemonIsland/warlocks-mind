@@ -1,0 +1,11 @@
+<% provide(:title, "All Sources") %>
+
+<h1>All Sources</h1>
+
+<%= link_to "Add New Source", new_source_path %>
+
+<hr />
+
+<% @sources.each do |source| %>
+  <%= render "source", source: source %>
+<% end %>
